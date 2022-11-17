@@ -1,0 +1,75 @@
+<%- include('header.ejs') %>
+
+<div class="container-fluid">
+  <div class="row py-3 align-items-start">
+    <div class="col-2">
+        <a href="/categories" class="btn text-red fs-5"><i class="fa-solid fa-arrow-left"></i> Back</a>
+    </div>
+    <div class="col-9">
+
+        <div class="row mt-3">
+            <div class="col-1">
+                <img src="/images/item.png" class="img-fluid border border-red border-2" alt="item">
+            </div>
+            <div class="col-8">
+                <div class="row text-red fs-5">COCA-COLA ORIGINAL TASTE (180ml)</div>
+                <div class="row text-red fs-6">&#8369;23</div>
+                <div class="row">Quantity: 3</div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-1">
+                <img src="/images/item.png" class="img-fluid border border-red border-2" alt="item">
+            </div>
+            <div class="col-8">
+                <div class="row text-red fs-5">COCA-COLA ORIGINAL TASTE (180ml)</div>
+                <div class="row text-red fs-6">&#8369;23</div>
+                <div class="row">Quantity: 2</div>
+            </div>
+        </div>
+
+        <hr class="border border-2 border-red opacity-100 my-3">
+
+        <div class="row my-2 align-items-center">
+            <div class="col-2 text-red fw-semibold">Customer Name:</div>
+            <div class="col"> &langle; Customer Name &rangle;</div>
+        </div>
+
+        <div class="row my-2 align-items-center">
+            <div class="col-2  text-red fw-semibold">Phone Number:</div>
+            <div class="col"> 09123456789 </div>
+        </div>
+
+        <div class="row my-2 align-items-center">
+            <div class="col-2  text-red fw-semibold">Mode of Payment:</div>
+            <div class="col"> Cash on Delivery </div>
+        </div>
+
+        <div class="row my-2 align-items-center">
+            <div class="col-2  text-red fw-semibold">Room Number:</div>
+            <div class="col-5"> 
+                <select class="form-select form-select-sm border border-red border-2 rounded">
+                    <option value="R1" selected>Room 1</option>
+                    <option value="R2">Room 2</option>
+                    <option value="R3">Room 3</option>
+                    <option value="R4">Room 4</option>
+                  </select>
+            </div>
+        </div>
+
+        <div class="row offset-7 mt-5 align-items-center justify-content-end">
+            <div class="col-6 text-red fs-3 fw-bold">
+                <span class="fs-6 fw-normal">Total Amount:</span> &#8369;115
+            </div>
+            <div class="d-grid col-6">
+                <button class="btn bg-red border rounded text-white fs-5">Place Order</button>
+            </div>
+        </div>
+
+
+    </div>
+  </div>  
+</div>
+
+</body>
+</html>
