@@ -1,0 +1,26 @@
+<%- include('header.ejs') %>
+<script type="module" src="/js/admin-revenue.js"></script>
+<div class="container-fluid">
+  <div class="row py-3 justify-content-start align-items-start">
+    <div class="col-2">
+        <div class="row">
+            <a href="/products" class="btn text-start text-red fs-5"><i class="fa-solid fa-arrow-left"></i> Back</a>
+        </div>
+        <div class="row mt-3">
+            <div class="col offset-1">
+                <select name="order-status" class="form-select border-red border-2 bg-white text-red" id="order-status">
+                    <option value="D">Daily</option>
+                    <option value="W">Weekly</option>
+                    <option value="M" selected>Monthly</option>
+                    <option value="Y">Yearly</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-9">
+        <div id="revenue-graph"></div>
+    </div>
+  </div>  
+</div>
+</body>
+</html>
