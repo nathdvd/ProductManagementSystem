@@ -1,11 +1,11 @@
-const express = require("express");
-const Router = express.Router();
+import { Router as _Router } from "express";
+const Router = _Router();
 
-const AccountsController = require('../../controllers/Accounts');
+import AccountsController from '../../controllers/Accounts.js';
 const accountController = new AccountsController();
 
 Router.get("/login", accountController.index);
 
 Router.post("/submit", accountController.submit);
 
-module.exports = Router;
+export default Router;

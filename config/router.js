@@ -1,12 +1,12 @@
-const express = require("express");
-const Router = express.Router();
+import { Router as _Router } from "express";
+const mainRouter = _Router();
 
-const adminRouter = require("./Routes/Admins");
-const userRouter = require("./Routes/Users");
-const accountRouter = require("./Routes/Accounts"); 
+import adminRouter from "./Routes/Admins.js";
+import userRouter from "./Routes/Users.js";
+import accountRouter from "./Routes/Accounts.js"; 
 
-Router.use("/", adminRouter);
-Router.use("/", userRouter);
-Router.use("/", accountRouter);
+mainRouter.use("/", adminRouter);
+mainRouter.use("/", userRouter);
+mainRouter.use("/", accountRouter);
 
-module.exports = Router;
+export default mainRouter;

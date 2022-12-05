@@ -1,12 +1,16 @@
-var express = require("express");
-const path = require("path");
+import express from "express";
+import bodyParser from "body-parser";
+import session from 'express-session';
+import mainRouter from "./config/router.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 var app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: true}));
 
-var session = require('express-session');
 app.use(session({
     secret: 'sessionsecretkey',
     resave: false,
@@ -20,7 +24,6 @@ app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/
 app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 app.use('/fonts', express.static(path.join(__dirname,'node_modules/@fortawesome/fontawesome-free')));
 
-const mainRouter = require("./config/router");
 app.set('view engine', 'ejs');
 app.use("/", mainRouter);
 

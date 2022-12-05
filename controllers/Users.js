@@ -1,3 +1,5 @@
+import User from "../models/User.js";
+
 class Users {
     index = (req, res) => {
         res.render("users/index");
@@ -15,9 +17,12 @@ class Users {
         res.render("users/orders");
     }
 
-    cart = (req, res) => {
+    cart = async (req, res) => {
+        const users = await User.getUsers();
+        console.log(users);
         res.render("users/cart");
+
     }
 }
 
-module.exports = Users;
+export default Users;

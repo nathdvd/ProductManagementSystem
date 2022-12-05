@@ -33,4 +33,4 @@ class Admins {
     }
 }
 
-module.exports = Admins;
+export default Admins;

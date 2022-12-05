@@ -1,12 +1,12 @@
-const express = require("express");
-const Router = express.Router();
+import { Router as _Router } from "express";
+const adminRouter = _Router();
 
-const AdminsController = require('../../controllers/Admins');
+import AdminsController from '../../controllers/Admins.js';
 const adminController = new AdminsController();
 
-Router.get("/", adminController.index);
-Router.get("/products", adminController.products);
-Router.get("/orders", adminController.orders);
-Router.get("/revenue", adminController.revenue);
+adminRouter.get("/", adminController.index);
+adminRouter.get("/products", adminController.products);
+adminRouter.get("/orders", adminController.orders);
+adminRouter.get("/revenue", adminController.revenue);
 
-module.exports = Router;
+export default adminRouter;

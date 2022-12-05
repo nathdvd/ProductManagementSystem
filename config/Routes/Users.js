@@ -1,7 +1,7 @@
-const express = require("express");
-const Router = express.Router();
+import { Router as _Router } from "express";
+const Router = _Router();
 
-const UsersController = require('../../controllers/Users');
+import UsersController from '../../controllers/Users.js';
 const userController = new UsersController();
 
 Router.get("/", userController.index);
@@ -10,4 +10,4 @@ Router.get("/orders", userController.orders);
 Router.get("/item", userController.item);
 Router.get("/cart", userController.cart);
 
-module.exports = Router;
+export default Router;
