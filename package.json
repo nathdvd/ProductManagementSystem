@@ -2,10 +2,11 @@
   "name": "productmanagementsystem",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "public/app.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:css": "postcss src/main.css -o public/assets/css/styles.css --watch",
+    "dev:start": "nodemon public/app.js"
   },
   "repository": {
     "type": "git",
@@ -15,16 +16,26 @@
   "license": "ISC",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.2.0",
+    "@tailwindcss/forms": "^0.5.3",
+    "autoprefixer": "^10.4.13",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
     "bootstrap": "^5.2.2",
+    "cloudinary": "^1.33.0",
+    "datauri": "^4.1.0",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
+    "firebase": "^9.15.0",
     "jquery": "^3.6.1",
+    "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0",
     "mysql2": "^2.3.3",
     "plotly.js-dist": "^2.16.3",
+    "postcss": "^8.4.20",
+    "postcss-cli": "^10.1.0",
+    "tailwindcss": "^3.2.4",
     "validator": "^13.7.0"
   },
   "bugs": {

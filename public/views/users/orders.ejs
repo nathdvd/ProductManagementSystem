@@ -1,0 +1,55 @@
+<%- include('head-files.ejs') %>
+</head>
+<%- include('header.ejs', {user: user, loggedIn: loggedIn, page: page}) %>
+    <div class="grid grid-cols-5 py-8">
+        <div class="px-8">
+            <a href="/categories" class="text-xl font-bold text-red-700"><i class="fa-solid fa-arrow-left"></i> Back</a>
+        </div>
+        <div class="col-span-3 text-center">
+            <p class="text-2xl uppercase text-red-700 font-bold">COMPLETED ORDERS</p>
+        </div>
+    </div>
+    <div class="grid grid-cols-5">
+        <div class="col-span-4 col-start-2">
+            <div class="grid grid-flow-row auto-rows-max gap-12 pr-24">
+                <div class="flex gap-8">
+                    <img src="/images/item.png" alt="item" class="border-2 border-red-700 max-h-36">
+                    <div class="font-semibold text-red-700 grow">
+                        <p class="text-xl">Product Name</p>
+                        <p class="text-base">Quantity</p>
+                        <p class="text-lg">Price</p>
+                    </div>
+                    <div class="flex-none text-red-700 font-semibold text-center self-center">
+                        <p>Date Purchased:</p>
+                        <p>08-12-22</p>
+                    </div>
+                </div>
+                <div class="flex gap-8">
+                    <img src="/images/item.png" alt="item" class="border-2 border-red-700 max-h-36">
+                    <div class="font-semibold text-red-700 grow">
+                        <p class="text-xl">Product Name</p>
+                        <p class="text-base">Quantity</p>
+                        <p class="text-lg">Price</p>
+                    </div>
+                    <div class="flex-none text-red-700 font-semibold text-center self-center">
+                        <p>Date Purchased:</p>
+                        <p>08-12-22</p>
+                    </div>
+                </div>
+                <div class="flex gap-8">
+                    <img src="/images/item.png" alt="item" class="border-2 border-red-700 max-h-36">
+                    <div class="font-semibold text-red-700 grow">
+                        <p class="text-xl">Product Name</p>
+                        <p class="text-base">Quantity</p>
+                        <p class="text-lg">Price</p>
+                    </div>
+                    <div class="flex-none text-red-700 font-semibold text-center self-center">
+                        <p>Date Purchased:</p>
+                        <p>08-12-22</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

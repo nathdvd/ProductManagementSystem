@@ -1,0 +1,91 @@
+<%- include('head-files.ejs') %>
+</head>
+<%- include('header.ejs', {user: user, page: page}) %>
+    <div class="grid grid-cols-5 p-8 gap-8">
+        <div class="flex flex-col gap-4">
+            <a href="/products" class="text-xl font-bold text-red-700"><i class="fa-solid fa-arrow-left"></i> Back</a>
+            <select name="order-status" id="order-status" class="px-4 py-1 border-red-700 border-2 text-red-700 rounded-md form-select focus:border-red-700 focus:ring-0">
+                <option value="A" selected>All</option>
+                <option value="P">In preparation</option>
+                <option value="D">Out for delivery</option>
+                <option value="C">Completed</option>
+            </select>
+        </div>
+        <div class="col-span-4">
+            <div class="w-full">
+                <div class="shadow overflow-hidden rounded border-b border-gray-200">
+                    <table class="min-w-full bg-white text-center text-sm">
+                        <thead class="bg-white text-red-800 border-b-2 border-red-700">
+                            <tr>
+                                <th class="py-3 px-4 uppercase font-semibold">Order No.</th>
+                                <th class="py-3 px-4 uppercase font-semibold w-1/6">Student Name</th>
+                                <th class="py-3 px-4 uppercase font-semibold w-1/3">Items</th>
+                                <th class="py-3 px-4 uppercase font-semibold">Total</th>
+                                <th class="py-3 px-4 uppercase font-semibold">Room No.</th>
+                                <th class="py-3 px-4 uppercase font-semibold">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-700">
+                        <tr>
+                            <td class="py-2">1</td>
+                            <td class="py-2">Hannah Jones</td>
+                            <td class="py-2">Coca-Cola, Notebook, ID Lace</td>
+                            <td class="py-2">Php 100.00</td>
+                            <td class="py-2">Room 1</td>
+                            <td class="py-2">
+                                <select name="order-status-1" id="order-status-1" class="form-select px-4 py-1 w-full border-red-700 border-2 text-red-700 rounded-md focus:border-red-700 focus:ring-0">
+                                    <option value="P" selected>In preparation</option>
+                                    <option value="D">Out for delivery</option>
+                                    <option value="C">Completed</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="bg-red-50">
+                            <td class="py-2">1</td>
+                            <td class="py-2">Hannah Jones</td>
+                            <td class="py-2">Coca-Cola, Notebook, ID Lace,Coca-Cola, Notebook, ID Lace,Coca-Cola, Notebook, ID Lace,Coca-Cola, Notebook, ID Lace</td>
+                            <td class="py-2">Php 100.00</td>
+                            <td class="py-2">Room 1</td>
+                            <td class="py-2">
+                                <select name="order-status-1" id="order-status-1" class="form-select px-4 py-1 w-full border-red-700 border-2 text-red-700 rounded-md focus:border-red-700 focus:ring-0">
+                                    <option value="P" selected>In preparation</option>
+                                    <option value="D">Out for delivery</option>
+                                    <option value="C">Completed</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-2">1</td>
+                            <td class="py-2">Hannah Jones</td>
+                            <td class="py-2">Coca-Cola, Notebook, ID Lace</td>
+                            <td class="py-2">Php 100.00</td>
+                            <td class="py-2">Room 1</td>
+                            <td class="py-2">
+                                <select name="order-status-1" id="order-status-1" class="form-select px-4 py-1 w-full border-red-700 border-2 text-red-700 rounded-md focus:border-red-700 focus:ring-0">
+                                    <option value="P" selected>In preparation</option>
+                                    <option value="D">Out for delivery</option>
+                                    <option value="C">Completed</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="bg-red-50">
+                            <td class="py-2">1</td>
+                            <td class="py-2">Hannah Jones</td>
+                            <td class="py-2">Coca-Cola, Notebook, ID Lace</td>
+                            <td class="py-2">Php 100.00</td>
+                            <td class="py-2">Room 1</td>
+                            <td class="py-2">
+                                <select name="order-status-1" id="order-status-1" class="form-select px-4 py-1 w-full border-red-700 border-2 text-red-700 rounded-md focus:border-red-700 focus:ring-0">
+                                    <option value="P" selected>In preparation</option>
+                                    <option value="D">Out for delivery</option>
+                                    <option value="C">Completed</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
