@@ -3,11 +3,13 @@ import validator from 'validator';
 
 class Product {
 
-    getProducts() {
+    async getProducts() {
+        const [result] = await getPool().query("SELECT id, retail_store_id, name, description, image_url, price, stock FROM products ORDER BY id DESC");
 
+        return result;
     }
 
-    getProductById() {
+    getProductById(id) {
         
     }
 
@@ -19,12 +21,28 @@ class Product {
         return result.insertId;
     }
 
-    updateProduct(post) {
+    async updateProduct(post) {
+        const datenow = new Date().toISOString().slice(0,19).replace("T", " ");
 
+        let result;
+
+        if (post['img-url'] == false) {
+            const [res] = await getPool().query("UPDATE products SET retail_store_id = ?, name = ?, description = ?, price = ?, stock = ?, updated_at = ? WHERE id = ?", [ post['store'], post['name'], post['desc'], post['price'], post['stock'], datenow, post['id']]);
+
+            result = res;
+        } else {
+            const [res] = await getPool().query("UPDATE products SET retail_store_id = ?, name = ?, description = ?, image_url = ?, price = ?, stock = ?, updated_at = ? WHERE id = ?", [ post['store'], post['name'], post['desc'], post['img-url'], post['price'], post['stock'], datenow, post['id']]);
+
+            result = res;
+        }
+
+        return result;
     }
 
-    removeProduct(id) {
+    async deleteProduct(id) {
+        const [result] = await getPool().query("DELETE FROM products WHERE id = ?", [id]);
 
+        return result;
     }
 
     markAsSoldOut(id) {

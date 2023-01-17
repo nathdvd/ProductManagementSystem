@@ -1,5 +1,6 @@
 <%- include('head-files.ejs') %>
-<script src="js/getImagePreview.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="js/admin-products.js"></script>
 </head>
 <%- include('header.ejs', {user: user, page: page}) %>
     <div class="grid grid-cols-5 py-8">
@@ -10,46 +11,26 @@
             <input type="button" value="ADD PRODUCT" class="px-4 py-1 bg-red-700 border-2 border-red-700 text-white rounded-md cursor-pointer hover:bg-red-800 hover:border-red-800 active:bg-red-800 active:border-red-800" data-bs-toggle="modal" data-bs-target="#addProductModal">
         </div>
         <%- include('add-product.ejs') %>
+        <%- include('edit-product.ejs') %>
     </div>
     <div class="grid grid-cols-5">
         <div class="col-span-4 col-start-2">
             <div class="grid grid-flow-row auto-rows-max pr-24">
-                <div class="flex gap-8 px-8 py-4 -mx-8">
-                    <img src="/images/item.png" alt="item" class="border-2 border-red-700 max-h-36">
-                    <div class="font-semibold text-red-700 grow">
-                        <p class="text-xl">Product Name</p>
-                        <p class="text-base">Quantity</p>
-                        <p class="text-lg">Price</p>
+                
+                <% products.forEach((product, index) => { %>
+                    <div class="flex gap-8 px-8 py-4 -mx-8 <%=index % 2 ? 'bg-red-50' : ''%>">
+                        <img src="<%=product.image_url%>" alt="<%=product.name%>" class="border-2 border-red-700 max-h-36">
+                        <div class="font-semibold text-red-700 grow">
+                            <p class="text-xl"><%=product.name%></p>
+                            <p class="text-base"><%=product.stock%></p>
+                            <p class="text-lg"><%=product.price%></p>
+                        </div>
+                        <div class="flex gap-4 text-red-700 text-center self-center">
+                            <input type="button" value="Update" data-id=<%=JSON.stringify(product)%> class="updateBtn px-4 border-2 border-red-700 text-red-700 rounded-md cursor-pointer" data-bs-toggle="modal" data-bs-target="#editProductModal">
+                            <input type="button" value="Delete" data-id=<%=product.id%> class="deleteBtn px-4 bg-red-700 border-2 border-red-700 text-white rounded-md cursor-pointer">
+                        </div>
                     </div>
-                    <div class="flex gap-4 text-red-700 text-center self-center">
-                        <input type="button" value="Update" class="px-4 border-2 border-red-700 text-red-700 rounded-md cursor-pointer">
-                        <input type="button" value="Delete" class="px-4 bg-red-700 border-2 border-red-700 text-white rounded-md cursor-pointer">
-                    </div>
-                </div>
-                <div class="flex gap-8 bg-red-50 px-8 py-4 -mx-8">
-                    <img src="/images/item.png" alt="item" class="border-2 border-red-700 max-h-36">
-                    <div class="font-semibold text-red-700 grow">
-                        <p class="text-xl">Product Name</p>
-                        <p class="text-base">Quantity</p>
-                        <p class="text-lg">Price</p>
-                    </div>
-                    <div class="flex gap-4 text-red-700 text-center self-center">
-                        <input type="button" value="Update" class="px-4 border-2 border-red-700 text-red-700 rounded-md cursor-pointer">
-                        <input type="button" value="Delete" class="px-4 bg-red-700 border-2 border-red-700 text-white rounded-md cursor-pointer">
-                    </div>
-                </div>
-                <div class="flex gap-8 px-8 py-4 -mx-8">
-                    <img src="/images/item.png" alt="item" class="border-2 border-red-700 max-h-36">
-                    <div class="font-semibold text-red-700 grow">
-                        <p class="text-xl">Product Name</p>
-                        <p class="text-base">Quantity</p>
-                        <p class="text-lg">Price</p>
-                    </div>
-                    <div class="flex gap-4 text-red-700 text-center self-center">
-                        <input type="button" value="Update" class="px-4 border-2 border-red-700 text-red-700 rounded-md cursor-pointer">
-                        <input type="button" value="Delete" class="px-4 bg-red-700 border-2 border-red-700 text-white rounded-md cursor-pointer">
-                    </div>
-                </div>
+                <% }); %>
             </div>
         </div>
     </div>

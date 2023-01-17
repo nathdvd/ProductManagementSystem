@@ -1,0 +1,54 @@
+<div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-lg relative w-auto pointer-events-none">
+        <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+        <div class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-gray-200 rounded-t-md">
+            <h5 class="text-xl font-bold leading-normal text-red-800">
+            EDIT PRODUCT
+            </h5>
+            <button type="button"
+            class="btn-close box-content w-4 h-4 p-1 text-black border-none rounded-none opacity-50 focus:shadow-none focus:outline-none focus:opacity-100 hover:text-black hover:opacity-75 hover:no-underline"
+            data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body relative p-4">
+            <div class="grid grid-flow-row auto-rows-max w-full">
+                <form method="post" id="editProductForm" enctype="multipart/form-data">
+                    <div class="grid grid-flow-row auto-rows-max w-full">
+                        <div class="mb-3 w-full">
+                            <label for="edit-name" class="form-label inline-block mb-2 text-black text-sm">Product Name</label>
+                            <input type="text" name="name" class=" form-control block w-full px-2 py-1 text-sm font-normal text-red-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-red-700 focus:bg-white focus:border-red-700 focus:outline-none focus:ring-0" id="edit-name" placeholder="Product Name" />
+                        </div>
+                        <div class="mb-3 w-full">
+                            <label for="edit-desc" class="form-label inline-block mb-2 text-black text-sm">Description</label>
+                            <textarea style="resize: none;" name="desc" class=" form-control block w-full px-3 py-1.5 text-sm font-normal text-red-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-red-700 focus:bg-white focus:border-red-700 focus:outline-none focus:ring-0" id="edit-desc" rows="2" placeholder="Product Description"></textarea>
+                        </div>
+                        <div class="mb-3 w-full">
+                            <label for="edit-shop" class="form-label inline-block mb-2 text-black text-sm">Store</label>
+                            <select class="form-select form-select-sm appearance-none block w-full px-2 py-1 text-sm font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-red-700 focus:outline-none" name="store" id="edit-store">
+                                <option value="1">Cooperative</option>
+                                <option value="2">Display Center</option>
+                                <option value="3">Canteen</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 w-full">
+                            <label for="edit-price" class="form-label inline-block mb-2 text-black text-sm">Product Price</label>
+                            <input type="number" name="price" class="form-control block w-full px-2 py-1 text-sm font-normal text-red-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-red-700 focus:bg-white focus:border-red-700 focus:outline-none focus:ring-0 " id="edit-price" placeholder="Product Price" step="0.01"/>
+                        </div>
+                        <div class="mb-3 w-full">
+                            <label for="edit-stock" class="form-label inline-block mb-2 text-black text-sm">Product Stock</label>
+                            <input type="number" name="stock" class=" form-control block w-full px-2 py-1 text-sm font-normal text-red-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-red-700 focus:bg-white focus:border-red-700 focus:outline-none focus:ring-0 " id="edit-stock" placeholder="Product Stock"/>
+                        </div>
+                        <div class="mb-3 w-full">
+                            <label for="edit-img" class="form-label inline-block mb-2 text-black text-sm">Product Image</label>
+                            <input name="product-img" class="form-control block w-full px-3 py-1.5 text-sm font-normal text-red-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-red-700 focus:bg-white focus:border-red-700 focus:outline-none focus:ring-0" type="file" accept="image/png,image/jpeg" id="edit-img" onchange="getImagePreview(event)">
+                        </div>
+                        <img src="" class="p-1 bg-white border rounded w-64 h-64 justify-self-center" alt="product image" id="edit-img-preview"/>
+                        <div class="my-3 w-full flex justify-end">
+                            <input type="submit" class="w-40 py-1 bg-red-700 border border-red-700 focus:border-red-700 focus:ring-0 rounded-md text-white cursor-pointer hover:bg-red-800" value="SAVE" id="saveBtn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
