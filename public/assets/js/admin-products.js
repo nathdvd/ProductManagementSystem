@@ -10,6 +10,7 @@ $(document).on('click', '.updateBtn', function() {
     $("#edit-name").val(product.name);
     $("#edit-desc").val(product.description);
     $("#edit-store").val(product.retail_store_id);
+    $("#edit-category").val(product.category_id);
     $("#edit-price").val(product.price);
     $("#edit-stock").val(product.stock);
     const img_tag = document.getElementById('edit-img-preview');

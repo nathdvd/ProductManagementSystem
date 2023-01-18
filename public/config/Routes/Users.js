@@ -10,4 +10,7 @@ Router.get("/orders", userController.orders);
 Router.get("/item", userController.item);
 Router.get("/cart", userController.cart);
 
+Router.get("/products/:category", userController.product_list_by_category);
+Router.get("/products/:category/:id", userController.product_display);
+
 export default Router;

@@ -6,10 +6,13 @@ const accountController = new AccountsController();
 
 Router.get("/login", accountController.index);
 
+Router.get("/logout", accountController.logout);
+
 Router.post("/submit", accountController.submit);
 
 Router.get("/profile", accountController.profile);
 
 Router.post("/addAdmin", accountController.addAdmin);
+
 
 export default Router;

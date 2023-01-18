@@ -22,8 +22,8 @@
                         <img src="<%=product.image_url%>" alt="<%=product.name%>" class="border-2 border-red-700 max-h-36">
                         <div class="font-semibold text-red-700 grow">
                             <p class="text-xl"><%=product.name%></p>
-                            <p class="text-base"><%=product.stock%></p>
-                            <p class="text-lg"><%=product.price%></p>
+                            <p class="text-base">Stock: <%=product.stock%></p>
+                            <p class="text-lg">Price: &#8369;<%=product.price%></p>
                         </div>
                         <div class="flex gap-4 text-red-700 text-center self-center">
                             <input type="button" value="Update" data-id=<%=JSON.stringify(product)%> class="updateBtn px-4 border-2 border-red-700 text-red-700 rounded-md cursor-pointer" data-bs-toggle="modal" data-bs-target="#editProductModal">

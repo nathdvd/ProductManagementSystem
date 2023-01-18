@@ -5,6 +5,11 @@ class Accounts {
         res.render("accounts/index");
     }
 
+    logout = (req, res) => {
+        delete req.session.user;
+        res.redirect("/");
+    }
+
     submit = async (req, res) => {
         const results = await Account.authenticateUser(req.body);
         

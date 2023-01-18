@@ -1,0 +1,20 @@
+<%- include('head-files.ejs') %>
+</head>
+<%- include('header.ejs', {user: user, loggedIn: loggedIn, page: page}) %>
+    <div class="grid grid-cols-6 gap-8 mx-16 my-12">
+        <%products.forEach(product => { %>
+        <div class="rounded shadow-md p-4">
+            <a href="/products/<%=category%>/<%=product.id%>">
+            <img src="/images/coke.jpeg" alt="product">
+            <h4 class="text-red-700 font-bold"><%=product.name%></h4>
+            <div class="flex justify-between">
+                <h5 class="text-red-700 inline-block">&#8369;<%=product.price%></h5>
+                <h5 class="text-gray-700 inline-block"><%=product.stock%> left</h5>    
+            </div>
+            </a>
+        </div>
+        <%});%>
+    </div>
+    
+</body>
+</html>
