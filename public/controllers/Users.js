@@ -1,5 +1,7 @@
 import Product from "../models/Product.js";
 import Order from "../models/Order.js";
+import Location from "../models/Location.js";
+
 
 class Users {
     constructor() {
@@ -60,16 +62,18 @@ class Users {
         } else res.redirect("/");
     }
 
-    cart = (req, res) => {
-        if (req.session.user)
-            res.render("users/cart", {user: this.user, loggedIn: this.loggedIn, page: 'Cart'});
-        else res.redirect("/");
+    cart = async (req, res) => {
+        if (req.session.user) {
+            let cartlist = await Order.getCart(this.user.id);
+            let locations = await Location.getLocation();
+            res.render("users/cart", {user: this.user, loggedIn: this.loggedIn, page: 'Cart', cart: cartlist, locations: locations});
+        } else res.redirect("/");
     }
 
     addToCart = async (req, res) => {
         if (req.session.user) {
             let result = await Order.addToCart(req.body);
-            return result;
+            res.json(result);
         } else res.redirect("/");
     }
 }

@@ -22,10 +22,9 @@ $(document).on('click', "#addToCartBtn", function() {
     const productid = $(this).data('id');
     const quantity = $('#quantity').val();
 
-    $.post("/addToCart", {user: userid, product: productid, quantity: quantity}, (response) => {
+    if(userid == "") alert("You are not logged in.");
+    else {
+        $.post("/addToCart", {user: userid, product: productid, quantity: quantity});
         alert("Product added to cart!");
-    })
-
-    
-})
-    
+    }
+});

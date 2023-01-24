@@ -52,7 +52,7 @@ class Order {
     }
 
     async getCart(id) {
-        const [result] = await getPool().query("SELECT products.id, products.name, products.description, products.image_url, products.price, products.stock, cart.quantity FROM products INNER JOIN cart ON products.id = cart.product_id WHERE cart.user_id = 1 = ?", [id]);
+        const [result] = await getPool().query("SELECT products.id, products.name, products.description, products.image_url, products.price, products.stock, cart.quantity FROM products INNER JOIN cart ON products.id = cart.product_id WHERE cart.user_id = ?", [id]);
 
         return result;
     }
@@ -60,9 +60,20 @@ class Order {
     async addToCart(post) {
         const datenow = new Date().toISOString().slice(0,19).replace("T", " ");
 
-        const [result] = await getPool().query("INSERT INTO cart(user_id, product_id, quantity, created_at, updated_at) VALUES (?,?,?,?,?)", [post['user'], post['product'], post['quantity'], datenow, datenow]);
+        const [cart] = await getPool().query("SELECT product_id, quantity FROM cart WHERE user_id = ?", [post['user']]);
 
-        return result.insertId;
+        let result;
+        cart.forEach(async (item) => {
+            if (parseInt(item.product_id) == parseInt(post['product'])) {
+                let new_quantity = item.quantity + post['quantity'];
+                result = await getPool().query("UPDATE cart SET quantity = ? WHERE product_id = ? AND user_id = ?", [new_quantity, post['product'], post['user']]);
+                return {id: post['product'], result: result};
+            }
+        });
+
+        result = await getPool().query("INSERT INTO cart(user_id, product_id, quantity, created_at, updated_at) VALUES (?,?,?,?,?)", [post['user'], post['product'], post['quantity'], datenow, datenow]);
+
+        return {id: result.insertId, result: result};
     }
 }
 

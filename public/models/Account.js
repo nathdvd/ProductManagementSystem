@@ -39,10 +39,14 @@ class Account {
 
     validateSubmit(post) {
         
+        let emailExt = post.email.split("@")[1];
+        let isEmailValid = emailExt == "bpsu.edu.ph";
+
         const loginfields = [
             validator.isEmpty(post['first-name']),
             validator.isEmpty(post['last-name']),
             validator.isEmail(post.email),
+            isEmailValid,
             !validator.isEmpty(post.password),
             validator.isEmpty(post.confirm)
         ];
@@ -55,6 +59,7 @@ class Account {
                 validator.isAlpha(post['last-name']),
                 validator.isLength(post['last-name'], {min: 2, max: 50}),
                 loginfields[2],
+                isEmailValid,
                 validator.isLength(post.password, {min: 6}),
                 post.password == post.confirm
             ];

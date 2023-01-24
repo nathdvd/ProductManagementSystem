@@ -52,6 +52,13 @@ class Product {
 
         return result;
     }
+
+    async decrementStock(post) {
+        const datenow = new Date().toISOString().slice(0,19).replace("T", " ");
+        const [result] = await getPool().query("UPDATE products SET stock = ?, updated_at = ? WHERE id = ?", [ post['stock'], datenow, post['product']]);
+
+        return result;
+    }
 }
 
 export default new Product();
