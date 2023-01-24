@@ -17,4 +17,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 
+$(document).on('click', "#addToCartBtn", function() {
+    const userid = $(this).data('user');
+    const productid = $(this).data('id');
+    const quantity = $('#quantity').val();
+
+    $.post("/addToCart", {user: userid, product: productid, quantity: quantity}, (response) => {
+        alert("Product added to cart!");
+    })
+
+    
+})
     

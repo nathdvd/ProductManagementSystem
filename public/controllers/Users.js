@@ -1,4 +1,5 @@
 import Product from "../models/Product.js";
+import Order from "../models/Order.js";
 
 class Users {
     constructor() {
@@ -63,6 +64,13 @@ class Users {
         if (req.session.user)
             res.render("users/cart", {user: this.user, loggedIn: this.loggedIn, page: 'Cart'});
         else res.redirect("/");
+    }
+
+    addToCart = async (req, res) => {
+        if (req.session.user) {
+            let result = await Order.addToCart(req.body);
+            return result;
+        } else res.redirect("/");
     }
 }
 
