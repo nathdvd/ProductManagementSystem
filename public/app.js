@@ -5,10 +5,18 @@ import mainRouter from "./config/router.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { cloudinaryConfig } from "./config/cloudinaryconfig.js";
+import dotenv from 'dotenv';
+import MySQLStore from "express-mysql-session";
+import getPool from './config/db.js';
+
 
 var app = express();
+dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+var store = MySQLStore(session);
+var sessionStore = new store({}, getPool());
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use("*", cloudinaryConfig);
@@ -17,6 +25,7 @@ app.use(session({
     secret: 'sessionsecretkey',
     resave: false,
     saveUninitialized: true,
+    store: sessionStore,
     cookie: { maxAge: 1000 * 60 * 60 * 24 }
   }));
 
