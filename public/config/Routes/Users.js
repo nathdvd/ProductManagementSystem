@@ -14,5 +14,6 @@ Router.get("/products/:category", userController.product_list_by_category);
 Router.get("/products/:category/:id", userController.product_display);
 
 Router.post("/addToCart", userController.addToCart);
+Router.post("/placeOrder", userController.placeOrder);
 
 export default Router;

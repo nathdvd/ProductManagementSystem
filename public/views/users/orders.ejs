@@ -5,49 +5,46 @@
         <div class="px-8">
             <a href="/categories" class="text-xl font-bold text-red-700"><i class="fa-solid fa-arrow-left"></i> Back</a>
         </div>
-        <div class="col-span-3 text-center">
-            <p class="text-2xl uppercase text-red-700 font-bold">COMPLETED ORDERS</p>
+        <div class="col-span-4 text-center">
+            <p class="text-2xl uppercase text-red-700 font-bold">ORDERS</p>
         </div>
     </div>
-    <div class="grid grid-cols-5">
-        <div class="col-span-4 col-start-2">
-            <div class="grid grid-flow-row auto-rows-max gap-12 pr-24">
-                <div class="flex gap-8">
-                    <img src="/images/item.png" alt="item" class="border-2 border-red-700 max-h-36">
-                    <div class="font-semibold text-red-700 grow">
-                        <p class="text-xl">Product Name</p>
-                        <p class="text-base">Quantity</p>
-                        <p class="text-lg">Price</p>
+    <div class="grid grid-cols-5 mb-12">
+        <div class="flex flex-col px-12">
+            <select name="order-status" id="order-status" class="px-4 py-1 border-red-700 border-2 text-red-700 rounded-md form-select focus:border-red-700 focus:ring-0">
+                <option value="All" selected>All</option>
+                <option value="In Preparation">In Preparation</option>
+                <option value="Out for Delivery">Out for Delivery</option>
+                <option value="Completed">Completed</option>
+            </select>
+        </div>
+        <div class="col-span-4">
+            <div class="grid grid-flow-row auto-rows-max gap-4 pr-16">
+                <% orders.forEach(order => { %>
+                    <div class="flex-row gap-8 border-2 border-red-700 p-4 rounded-md">
+                        <div class="flex justify-between text-red-700 font-semibold border-b-2 border-red-700 mb-2">
+                            <p>Date Purchased: <%= new Date(order.created_at).toLocaleDateString() %> </p>
+                            <p>Status: <%=order.status%> </p>
+                        </div>
+                        <div class="flex-row border-red-700 border-b-2 mb-2">
+                            <% order.items.forEach(item => { %>
+                                <div class="flex gap-4 mb-2">
+                                    <img src="<%=item.image_url%>" alt="item" class="border-2 border-red-700 max-h-16">
+                                    <div class="font-semibold text-red-700">
+                                        <p class="text-base"><%=item.name%></p>
+                                        <p class="text-sm">Quantity: <%=item.quantity%></p>
+                                        <p class="text-sm">Subtotal: &#8369;<%=(parseFloat(item.price) * item.quantity).toFixed(2)%></p>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                        <div class="flex justify-between text-red-700 font-semibold">
+                            <p>Location: <%=order.location%></p>
+                            <p>Total: &#8369;<%=parseFloat(order.total).toFixed(2)%></p>
+                        </div>
                     </div>
-                    <div class="flex-none text-red-700 font-semibold text-center self-center">
-                        <p>Date Purchased:</p>
-                        <p>08-12-22</p>
-                    </div>
-                </div>
-                <div class="flex gap-8">
-                    <img src="/images/item.png" alt="item" class="border-2 border-red-700 max-h-36">
-                    <div class="font-semibold text-red-700 grow">
-                        <p class="text-xl">Product Name</p>
-                        <p class="text-base">Quantity</p>
-                        <p class="text-lg">Price</p>
-                    </div>
-                    <div class="flex-none text-red-700 font-semibold text-center self-center">
-                        <p>Date Purchased:</p>
-                        <p>08-12-22</p>
-                    </div>
-                </div>
-                <div class="flex gap-8">
-                    <img src="/images/item.png" alt="item" class="border-2 border-red-700 max-h-36">
-                    <div class="font-semibold text-red-700 grow">
-                        <p class="text-xl">Product Name</p>
-                        <p class="text-base">Quantity</p>
-                        <p class="text-lg">Price</p>
-                    </div>
-                    <div class="flex-none text-red-700 font-semibold text-center self-center">
-                        <p>Date Purchased:</p>
-                        <p>08-12-22</p>
-                    </div>
-                </div>
+                <% }); %>
+                
             </div>
         </div>
     </div>

@@ -3,16 +3,30 @@ import validator from 'validator';
 
 class Order {
 
-    getOrders() {
-        
+    async getOrders(id) {
+        const [result] = await getPool().query("SELECT orders.id, location.location, orders.status, orders.created_at FROM orders INNER JOIN location ON location.id = orders.location_id WHERE orders.user_id = ? ORDER BY orders.created_at DESC", [id]);
+
+        for (const order of result) {
+            const [items, total] = await this.getOrderDetail(order.id);
+            order.items = items;
+            order.total = total;
+        }
+        return result;
     }
 
     getOrderById() {
         
     }
 
-    getOrderDetail() {
+    async getOrderDetail(id) {
+        const [result] = await getPool().query("SELECT products.name, products.image_url, order_details.price, order_details.quantity FROM order_details INNER JOIN products ON order_details.product_id = products.id WHERE order_details.order_id = ?", [id]);
 
+        let total = 0;
+        for (const item of result) {
+            total += item.price * item.quantity;
+        }
+
+        return [result, total];
     }
 
     getOrderByStatus(status) {
@@ -22,17 +36,43 @@ class Order {
     async addOrder(post) {
         const datenow = new Date().toISOString().slice(0,19).replace("T", " ");
         
-        const [result1] = await getPool().query("INSERT INTO orders(user_id, location_id, status, created_at, updated_at) VALUES(?,?,?,?,?)", [post['user'], post['location'], 'In Preparation', datenow, datenow]);
+        let conn;
+        try {
+            conn = await getPool().getConnection();
+            await conn.beginTransaction();
 
-        let result = 1;
-        const cart = this.getCart(post['user']);
-        for (product of cart) {
-            const [result2] = await getPool().query("INSERT INTO orderDetails(order_id, product_id, price, quantity, created_at, updated_at) VALUES(?,?,?,?,?,?)", [result1.insertId, product.id, product.price, product.quantity, datenow, datenow]);
+            const [result1] = await conn.query("INSERT INTO orders(user_id, location_id, status, created_at, updated_at) VALUES(?,?,?,?,?)", [post['user'], post['location'], 'In Preparation', datenow, datenow]);
+        
+            const cart = JSON.parse(post['cart']);
+            console.log(cart);
+            
+            cart.forEach( async (product) => {
+                let [result2] = await conn.query("SELECT stock FROM products WHERE id = ?", product.pid);
+                result2 = result2[0];
 
-            result = result && result2;
+                if (result2.stock - product.quantity < 0) {
+                    if (conn) {
+                        await conn.rollback();
+                        await conn.release();
+                    }
+                    throw "Not enough stock";
+                }
+
+                const left = parseInt(result2.stock) - parseInt(product.quantity);
+                await conn.query("UPDATE products SET stock = ? WHERE id = ?", [left, product.pid]);
+                await conn.query("INSERT INTO order_details(order_id, product_id, price, quantity, created_at, updated_at) VALUES(?,?,?,?,?,?)", [result1.insertId, product.pid, product.price, product.quantity, datenow, datenow]);
+                await conn.query("DELETE FROM cart WHERE id = ?", product.id);
+            });
+
+            await conn.commit();
+        } catch (error) {
+            if (conn) await conn.rollback();
+            throw error;
+        } finally {
+            if (conn) await conn.release();
         }
 
-        return result;
+        return {result: 1};
     }
 
     async addSingleOrder(post) {
@@ -52,7 +92,7 @@ class Order {
     }
 
     async getCart(id) {
-        const [result] = await getPool().query("SELECT products.id, products.name, products.description, products.image_url, products.price, products.stock, cart.quantity FROM products INNER JOIN cart ON products.id = cart.product_id WHERE cart.user_id = ?", [id]);
+        const [result] = await getPool().query("SELECT cart.id AS 'id', products.id AS 'pid', products.name, products.description, products.image_url, products.price, products.stock, cart.quantity FROM products INNER JOIN cart ON products.id = cart.product_id WHERE cart.user_id = ?", [id]);
 
         return result;
     }
