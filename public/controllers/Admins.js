@@ -1,4 +1,5 @@
 import Product from "../models/Product.js";
+import Order from "../models/Order.js";
 
 class Admins {
     index = (req, res, next) => {
@@ -19,9 +20,10 @@ class Admins {
         }
     }
 
-    orders = (req, res, next) => {
+    orders = async (req, res, next) => {
         if (req.session.user && req.session.user.role == "ADMIN") {
-            res.render("admins/orders", {user: req.session.user, page: "Orders"});
+            let orders = await Order.getOrdersByAdmin();
+            res.render("admins/orders", {user: req.session.user, page: "Orders", orders: orders});
         } else {
             next();
         }
@@ -30,6 +32,15 @@ class Admins {
     revenue = (req, res) => {
         if (req.session.user && req.session.user.role == "ADMIN") {
             res.render("admins/revenue", {user: req.session.user, page: "Revenue"});
+        } else {
+            res.redirect("/");
+        }
+    }
+
+    updateOrderStatus = async (req, res) => {
+        if (req.session.user && req.session.user.role == "ADMIN") {
+            await Order.updateOrderStatus(req.body);
+            res.sendStatus(200);
         } else {
             res.redirect("/");
         }

@@ -14,10 +14,6 @@ class Order {
         return result;
     }
 
-    getOrderById() {
-        
-    }
-
     async getOrderDetail(id) {
         const [result] = await getPool().query("SELECT products.name, products.image_url, order_details.price, order_details.quantity FROM order_details INNER JOIN products ON order_details.product_id = products.id WHERE order_details.order_id = ?", [id]);
 
@@ -29,8 +25,33 @@ class Order {
         return [result, total];
     }
 
+    async getOrdersByAdmin() {
+        const [result] = await getPool().query("SELECT orders.id, users.first_name, users.last_name, location.location, orders.status, orders.created_at FROM orders INNER JOIN location ON location.id = orders.location_id INNER JOIN users on orders.user_id = users.id ORDER BY orders.created_at DESC");
+
+        for (const order of result) {
+            const [items, total] = await this.getOrderDetail(order.id);
+            order.items = items;
+            order.total = total;
+        }
+        return result;
+    }
+
+    getOrderById() {
+        
+    }
+
+    
+
     getOrderByStatus(status) {
 
+    }
+
+    async updateOrderStatus(post) {
+        const datenow = new Date().toISOString().slice(0,19).replace("T", " ");
+
+        const [result] = await getPool().query("UPDATE orders SET status = ?, updated_at = ? WHERE id = ?", [post['status'], datenow, post['id']]);
+        
+        return result;
     }
 
     async addOrder(post) {

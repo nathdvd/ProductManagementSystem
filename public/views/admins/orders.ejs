@@ -1,4 +1,6 @@
 <%- include('head-files.ejs') %>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/admin-orders.js"></script>
 </head>
 <%- include('header.ejs', {user: user, page: page}) %>
     <div class="grid grid-cols-5 p-8 gap-8">
@@ -26,62 +28,33 @@
                             </tr>
                         </thead>
                         <tbody class="text-gray-700">
-                        <tr>
-                            <td class="py-2">1</td>
-                            <td class="py-2">Hannah Jones</td>
-                            <td class="py-2">Coca-Cola, Notebook, ID Lace</td>
-                            <td class="py-2">Php 100.00</td>
-                            <td class="py-2">Room 1</td>
-                            <td class="py-2">
-                                <select name="order-status-1" id="order-status-1" class="form-select px-4 py-1 w-full border-red-700 border-2 text-red-700 rounded-md focus:border-red-700 focus:ring-0">
-                                    <option value="P" selected>In preparation</option>
-                                    <option value="D">Out for delivery</option>
-                                    <option value="C">Completed</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr class="bg-red-50">
-                            <td class="py-2">1</td>
-                            <td class="py-2">Hannah Jones</td>
-                            <td class="py-2">Coca-Cola, Notebook, ID Lace,Coca-Cola, Notebook, ID Lace,Coca-Cola, Notebook, ID Lace,Coca-Cola, Notebook, ID Lace</td>
-                            <td class="py-2">Php 100.00</td>
-                            <td class="py-2">Room 1</td>
-                            <td class="py-2">
-                                <select name="order-status-1" id="order-status-1" class="form-select px-4 py-1 w-full border-red-700 border-2 text-red-700 rounded-md focus:border-red-700 focus:ring-0">
-                                    <option value="In preparation" selected>In preparation</option>
-                                    <option value="Out for delivery">Out for delivery</option>
-                                    <option value="Completed">Completed</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="py-2">1</td>
-                            <td class="py-2">Hannah Jones</td>
-                            <td class="py-2">Coca-Cola, Notebook, ID Lace</td>
-                            <td class="py-2">Php 100.00</td>
-                            <td class="py-2">Room 1</td>
-                            <td class="py-2">
-                                <select name="order-status-1" id="order-status-1" class="form-select px-4 py-1 w-full border-red-700 border-2 text-red-700 rounded-md focus:border-red-700 focus:ring-0">
-                                    <option value="P" selected>In preparation</option>
-                                    <option value="D">Out for delivery</option>
-                                    <option value="C">Completed</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr class="bg-red-50">
-                            <td class="py-2">1</td>
-                            <td class="py-2">Hannah Jones</td>
-                            <td class="py-2">Coca-Cola, Notebook, ID Lace</td>
-                            <td class="py-2">Php 100.00</td>
-                            <td class="py-2">Room 1</td>
-                            <td class="py-2">
-                                <select name="order-status-1" id="order-status-1" class="form-select px-4 py-1 w-full border-red-700 border-2 text-red-700 rounded-md focus:border-red-700 focus:ring-0">
-                                    <option value="P" selected>In preparation</option>
-                                    <option value="D">Out for delivery</option>
-                                    <option value="C">Completed</option>
-                                </select>
-                            </td>
-                        </tr>
+                        <% orders.forEach((order,index) => { %>
+                            <tr class="<%=index % 2 ? 'bg-red-50' : ''%>">
+                                <td class="py-2"><%=order.id%></td>
+                                <td class="py-2"><%=order.first_name%> <%=order.last_name%> </td>
+                                <td class="py-2">
+                                    <%order.items.forEach(item => { %>
+                                        <div class="flex gap-4 mb-2 text-left items-center">
+                                            <img src="<%=item.image_url%>" alt="item" class="border-2 border-red-700 max-h-16">
+                                            <div>
+                                                <p class="text-sm"><%=item.name%></p>
+                                                <p class="text-xs">Quantity: <%=item.quantity%></p>
+                                                <p class="text-xs">Subtotal: &#8369;<%=(parseFloat(item.price) * item.quantity).toFixed(2)%></p>
+                                            </div>
+                                        </div>
+                                    <% }); %>
+                                </td>
+                                <td class="py-2 font-semibold text-red-700">&#8369;<%=order.total%></td>
+                                <td class="py-2"><%=order.location%></td>
+                                <td class="py-2">
+                                    <select name="order-status" class="order-status form-select px-4 py-1 w-full border-red-700 border-2 text-red-700 rounded-md focus:border-red-700 focus:ring-0" data-id="<%=order.id%>">
+                                        <option value="In Preparation" <%=order.status == 'In Preparation' ? 'selected': ''%>>In preparation</option>
+                                        <option value="Out for Delivery" <%=order.status == 'Out for Delivery' ? 'selected': ''%>>Out for delivery</option>
+                                        <option value="Completed" <%=order.status == 'Completed' ? 'selected': ''%>>Completed</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        <% }); %>
                     </tbody>
                 </table>
             </div>

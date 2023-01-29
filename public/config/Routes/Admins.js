@@ -14,5 +14,6 @@ adminRouter.get("/revenue", adminController.revenue);
 adminRouter.post("/addProduct", upload, productController.addProduct);
 adminRouter.post("/editProduct/:id", upload, productController.editProduct);
 adminRouter.post("/deleteProduct/:id", productController.deleteProduct);
+adminRouter.post("/updateOrderStatus", adminController.updateOrderStatus);
 
 export default adminRouter;
