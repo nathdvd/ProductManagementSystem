@@ -15,4 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return false;
     });
+
+    $('#message').on("click", () => {
+        $('#message').fadeOut(3000);
+    });
 });

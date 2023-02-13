@@ -1,0 +1,39 @@
+<%- include('head-files.ejs') %>
+</head>
+<%- include('header.ejs', {user: user, page: "None"}) %>
+<div class="flex py-8 justify-center flex-col items-center">
+    <div class="py-4 px-12 mb-8 border-4 border-yellow-500 w-1/3 text-center cursor-pointer text-yellow-600 <%= message == 'None' ? 'hidden' : 'block'%>" id="message">
+        <%=message%>
+    </div>
+    <div class="py-4 px-12 border-4 border-red-700 w-1/3">
+        <h1 class="text-red-700 text-2xl font-bold text-center mb-4">ADMIN MANAGEMENT</h1>
+        <form action="/addAdmin" method="post" class="w-full">
+            <div class="text-sm w-full">
+                <div class="form-floating mb-4" id="first-name-div">
+                    <input type="text" class="form-control w-full px-2 text-red-700 bg-white bg-clip-padding border border-solid border-red-700 rounded transition ease-in-out m-0 focus:text-red-700 focus:ring-0 focus:border-red-700 focus:outline-none" id="first-name" placeholder="First Name" name="first-name">
+                    <label for="first-name" class="text-gray-700">First Name</label>
+                </div>
+                <div class="form-floating mb-4" id="last-name-div">
+                    <input type="text" class="form-control w-full px-2 text-red-700 bg-white bg-clip-padding border border-solid border-red-700 rounded transition ease-in-out m-0 focus:text-red-700 focus:ring-0 focus:border-red-700 focus:outline-none" id="last-name" placeholder="Last Name" name="last-name">
+                    <label for="last-name" class="text-gray-700">Last Name</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="email" class="form-control w-full px-2 text-red-700 bg-white bg-clip-padding border border-solid border-red-700 rounded transition ease-in-out m-0 focus:text-red-700 focus:ring-0 focus:border-red-700 focus:outline-none" id="email" placeholder="Email Address" name="email">
+                    <label for="email" class="text-gray-700">Email Address</label>
+                </div>
+               
+                
+                <input type="submit" value="ADD ADMIN" id="submit-form" class="bg-red-700 text-white w-32 rounded-md py-2 text-center cursor-pointer">
+
+                <div class="my-4">
+                    <p class="uppercase text-red-700 font-semibold">Note:</p>
+                    <p>Default password is '<span class="text-red-700">changeme</span>'. Please remind newly added admins to change their password.</p>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BPSU <%= user.role == "ADMIN" ? " - ADMIN" : "" %> </title>
+    <link rel="stylesheet" type="text/css" href="/fonts/css/all.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/account-profile.js"></script>
+</head>
+<% 
+let navs;
+if (user.role == "ADMIN") {
+    navs = {Home: "/", Products: "/products", Orders: "/orders", Revenue: "/revenue"};
+} else {
+    navs = {Home: "/", Categories: "/categories", Cart: "/cart", Orders: "/orders"};
+} %>
+<body>
+    <div class="grid grid-cols-7">
+        <div class="col-start-3 col-span-3">
+            <img src="https://res.cloudinary.com/dlhada2yw/image/upload/v1674522298/productImages/MainLogo_kwoajv.png" alt="Logo">
+        </div>
+    </div>
+    <div class="bg-red-800 h-16 grid grid-cols-5 items-center w-full">
+        <div class="col-span-3 col-start-2 justify-self-center items-center">
+<% for (let nav in navs) { %>
+            <a href=<%=navs[nav]%> class="px-4 py-2 text-white"><%=nav%></a>
+<% } %> </div>
+        <div class="px-8 items-center">
+            <div class="flex">
+                <div>
+                    <div class="dropdown relative">
+                        <a class="dropdown-toggle py-2.5 bg-transparent text-white font-medium rounded focus:outline-none focus:ring-0 flex items-center" href="#" type="button" id="account-dropdown" data-bs-toggle="dropdown" aria-expanded="false">Hi, <%=user.fn%> <i class="fa-solid fa-caret-down pl-4"></i></a>
+                        <ul class="dropdown-menu min-w-full absolute bg-white text-base z-50 float-left py-2 list-none text-left rounded-lg shadow-lg mt-1 hidden m-0 bg-clip-padding border-none" aria-labelledby="account-dropdown">
+                            <li>
+                                <a class="dropdown-item py-2 px-4 font-normal block w-full bg-transparent text-gray-700 hover:bg-gray-100" href="#">Profile</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item py-2 px-4 font-normal block w-full bg-transparent text-gray-700 hover:bg-gray-100" href="/logout">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="px-16 my-8 w-full text-center cursor-pointer <%= message == 'None' ? 'hidden' : 'block'%>" id="message">
+        <p class="border-2 border-yellow-500 rounded py-2 text-yellow-600">
+        <%=message%>
+        </p>
+    </div>
+
+    <div class="px-16 my-8 grid grid-cols-2 gap-4 items-start w-full">
+        <div class="border-2 rounded border-red-700 px-12 py-4">
+            <form action="/updateContact" method="post" class="grid grid-flow-row auto-rows-max">
+                <label for="contact" class="font-semibold uppercase mb-2">Contact Number:</label>
+                <input type="tel" name="contact" id="contact" class="form-input border-red-700 rounded border text-sm mb-8 focus:outline-none focus:ring-0 focus:border-red-700">
+                <input type="submit" value="Update" class="bg-red-700 text-white rounded py-2 cursor-pointer">
+            </form>
+        </div>
+        <div class="border-2 rounded border-red-700 px-12 py-4">
+            <form action="/updatePassword" method="post" class="grid grid-flow-row auto-rows-max">
+                <label for="password" class="font-semibold uppercase mb-2">Password:</label>
+                <input type="password" name="password" id="password" class="form-input border-red-700 rounded border text-sm mb-8 focus:outline-none focus:ring-0 focus:border-red-700">
+                <label for="confirm" class="font-semibold uppercase mb-2">Confirm Password:</label>
+                <input type="password" name="confirm" id="confirm" class="form-input border-red-700 rounded border text-sm mb-8 focus:outline-none focus:ring-0 focus:border-red-700">
+                <input type="submit" value="Update" class="bg-red-700 text-white rounded py-2 cursor-pointer">
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

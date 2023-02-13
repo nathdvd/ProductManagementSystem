@@ -52,12 +52,9 @@ class Users {
         }
     }
 
-    item = (req, res) => {
-        res.render("users/item", {user: this.user, loggedIn: this.loggedIn, page: 'Categories'});
-    }
-
     orders = async (req, res) => {
         if(req.session.user) {
+            this.user = req.session.user;
             let orders = await Order.getOrders(this.user.id);
             res.render("users/orders", {user: this.user, loggedIn: this.loggedIn, page: 'Orders', orders: orders});
         } else res.redirect("/");
@@ -65,6 +62,7 @@ class Users {
 
     cart = async (req, res) => {
         if (req.session.user) {
+            this.user = req.session.user;
             let cartlist = await Order.getCart(this.user.id);
             let locations = await Location.getLocation();
             res.render("users/cart", {user: this.user, loggedIn: this.loggedIn, page: 'Cart', cart: cartlist, locations: locations});
@@ -73,7 +71,15 @@ class Users {
 
     addToCart = async (req, res) => {
         if (req.session.user) {
+            this.user = req.session.user;
             let result = await Order.addToCart(req.body);
+            res.json(result);
+        } else res.redirect("/");
+    }
+
+    clearCart = async (req, res) => {
+        if (req.session.user) {
+            let result = await Order.clearCart(req.session.user.id);
             res.json(result);
         } else res.redirect("/");
     }

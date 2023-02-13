@@ -11,6 +11,7 @@ adminRouter.get("/", adminController.index);
 adminRouter.get("/products", adminController.products);
 adminRouter.get("/orders", adminController.orders);
 adminRouter.get("/revenue", adminController.revenue);
+adminRouter.get("/manageAdmin", adminController.manageAdmin);
 adminRouter.post("/addProduct", upload, productController.addProduct);
 adminRouter.post("/editProduct/:id", upload, productController.editProduct);
 adminRouter.post("/deleteProduct/:id", productController.deleteProduct);

@@ -45,6 +45,14 @@ class Admins {
             res.redirect("/");
         }
     }
+
+    manageAdmin = (req, res) => {
+        if (req.session.user && req.session.user.level == 1) {
+            res.render("admins/add-admin", {user: req.session.user, page: "None", message: "None"});
+        } else {
+            res.redirect("/");
+        }
+    }
 }
 
 export default Admins;

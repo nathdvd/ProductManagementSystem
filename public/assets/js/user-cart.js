@@ -15,11 +15,24 @@ $(document).on("click", "#placeOrderBtn", async function() {
     const userid = $(this).data('user');
     const loc = parseInt($("#location").val());
     let cart = $(this).data("cart");
-    console.log(cart, location);
     if(userid == "") alert("You are not logged in.");
+    else if (cart.length < 1) alert("Cart is empty.");
     else {
         await $.post("/placeOrder", {user: userid, cart: JSON.stringify(cart), location: loc}).then(() => {
             alert("Your order has been placed! Please check the Orders tab for tracking.");
+            location.reload();
+        });
+    }
+});
+
+$(document).on("click", "#clearCartBtn", async function() {
+    const userid = $(this).data('user');
+    let cart = $(this).data("cart");
+    if(userid == "") alert("You are not logged in.");
+    else if (cart.length < 1) alert("Cart is empty.");
+    else {
+        await $.post("/clearCart", {}).then(() => {
+            alert("Cart has been cleared.");
             location.reload();
         });
     }

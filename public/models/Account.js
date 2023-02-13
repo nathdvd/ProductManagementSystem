@@ -5,9 +5,32 @@ import validator from 'validator';
 class Account {
 
     async getUserByEmail(email) {
-        const [result] = await getPool().query("SELECT users.id, users.first_name, users.last_name, users.email, users.password, user_roles.role_name, user_roles.role_level FROM users INNER JOIN user_roles ON users.user_role_id = user_roles.id WHERE email = ?", [email]);
+        const [result] = await getPool().query("SELECT users.id, users.first_name, users.last_name, users.email, users.contact, users.password, user_roles.role_name, user_roles.role_level FROM users INNER JOIN user_roles ON users.user_role_id = user_roles.id WHERE email = ?", [email]);
 
         return result[0];
+    }
+
+    async updatePassword(post) {
+        const fields = [
+            validator.isLength(post.password, {min: 6}),
+            post.password == post.confirm
+        ];
+
+        if (fields.includes(false)) return 0;
+        else {
+            const salt = bcrypt.genSaltSync();
+            const hashedpw = bcrypt.hashSync(post.password, salt);
+            const datenow = new Date().toISOString().slice(0,19).replace("T", " ");
+            const [result] = await getPool().query("UPDATE users SET password = ?, updated_at = ? WHERE id = ?", [hashedpw, datenow, post.id]);
+
+            return result;
+        }
+    }
+
+    async updateContact(post) {
+        const datenow = new Date().toISOString().slice(0,19).replace("T", " ");
+        const [result] = await getPool().query("UPDATE users SET contact = ?, updated_at = ? WHERE id = ?", [post.contact, datenow, post.id]);
+        return result;
     }
 
     async addUser(post, user_role_id) {
@@ -28,7 +51,7 @@ class Account {
         if (status == 1) {
             const user = await this.getUserByEmail(post.email);
             if (user == undefined || !bcrypt.compareSync(post.password, user.password)) return false;
-            else return {id: user.id, fn: user.first_name, ln: user.last_name, email: user.email, role: user.role_name, level: user.role_level};
+            else return {id: user.id, fn: user.first_name, ln: user.last_name, email: user.email, contact: user.contact, role: user.role_name, level: user.role_level};
         } else if (status == 2) {
             return await this.addUser(post, 3) ? true : false;
         } else {
@@ -71,17 +94,20 @@ class Account {
 
     }
 
-    validateNewAdmin(post) {
+    async addNewAdmin(post) {
         const registerfields = [
             validator.isAlpha(post['first-name']),
             validator.isLength(post['first-name'], {min: 2, max: 50}),
             validator.isAlpha(post['last-name']),
             validator.isLength(post['last-name'], {min: 2, max: 50}),
             validator.isEmail(post.email),
-            //validator manages retail stores
         ];
-
-
+        
+        if (registerfields.includes(false)) return false;
+        else {
+            post['password'] = "changeme"; // default password
+            return await this.addUser(post, 2) ? true : false;
+        };
     }
 
 }
